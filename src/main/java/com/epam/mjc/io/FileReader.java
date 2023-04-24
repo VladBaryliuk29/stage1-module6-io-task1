@@ -6,16 +6,16 @@ import java.io.*;
 public class FileReader {
     public Profile getDataFromFile(File file) {
         try(FileInputStream reader1 = new FileInputStream(file)){
-            String information = "";
             int ch;
+            StringBuilder bld = new StringBuilder();
             while ((ch = reader1.read()) != -1) {
-                information += (char)ch;
+                bld.append((char)ch);
             }
+            String information = bld.toString();
             String[] strArray = information.split("[ \n\r]");
-            Profile profile1 = new Profile(strArray[1], Integer.parseInt(strArray[4]), strArray[7], Long.parseLong(strArray[10]));
-            return profile1;
-        } catch (FileNotFoundException e) {
+            return new Profile(strArray[1], Integer.parseInt(strArray[4]), strArray[7], Long.parseLong(strArray[10]));
         } catch (IOException e) {
+            // Empty on purpose
         }
         return null;
     }
